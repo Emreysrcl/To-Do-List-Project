@@ -1,0 +1,43 @@
+<%- include('partials/header.ejs'); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO List</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<div class="box" id="heading">
+  <h1>
+        <%= listTitle %>
+    </h1>
+</div>
+    
+<div class="box">
+    <% for (let item of newListItems) { %>
+        <div class="item">
+          <input type="checkbox" id="checkbox<%= newListItems.indexOf(item) %>" name="checkbox">
+          <label for="checkbox<%= newListItems.indexOf(item) %>"><%= item %></label>
+        </div>
+      <% } %>
+<form class="item" action="/" method="POST">
+    <input  type = "text" id ="newItem" name="newItem" placeholder="New Item" autocomplete="off" >
+    <button type="submit" name="list" value=<%=listTitle %> >+</button>
+</form>
+</div>  
+
+<script >  function handleCheckboxChange() {
+    const label = this.nextElementSibling;
+    label.style.textDecoration = this.checked ? "line-through" : "none";
+  }
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", handleCheckboxChange);
+    });
+  }); </script>
+</body>
+</html>
+<%- include('partials/footer.ejs'); -%>
